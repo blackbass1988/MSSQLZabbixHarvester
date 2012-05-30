@@ -8,20 +8,19 @@ def loadConfig():
 	return config
 
 def printResponse(row,format):
-	if format = "json":
+	if format == "json":
 		print "{connections:"+row[0]+",cpu:"+row[1]+",pio:"+row[2]+",musage:"+row[3]+"}"
-	if format = "cvs":
+	if format == "cvs":
 		print row[0] + ";" +  row[1] + ";" + row[2] + ";" + row[3]
 
 config = loadConfig()
 try:
-	msConnection = pymssql.connect(host=config.get("mssql","host"),user=config.get("mssql","user"),password=config.get("mssql","password")
+	msConnection = pymssql.connect(host=config.get("mssql","host"),user=config.get("mssql","user"),password=config.get("mssql","password"))
 	msCursor = msConnection.cursor()
 except:
 	print "getCursor exception! Check the config.ini for correct properties!"
 
-query = "select (select count(dbid) from sys.sysprocesses where dbid>0) as totalCon " +
-", sum (cpu) as cpu, sum(physical_io)  as pio, sum(memusage)  as musage from sys.sysprocesses;"	
+query = "select (select count(dbid) from sys.sysprocesses where dbid>0) as totalCon, sum (cpu) as cpu, sum(physical_io)  as pio, sum(memusage)  as musage from sys.sysprocesses;"	
 
 try:
 	result = msCursor.execute(query)
