@@ -11,7 +11,7 @@ def printResponse(row,format):
 	if format == "json":
 		print "{connections:" + str(row[0]) + ",cpu:" + str(row[1]) + ",pio:" + str(row[2]) + ",musage:" + str(row[3]) + "}"
 	if format == "cvs":
-		print row[0] + ";" +  str(row[1]) + ";" + str(row[2]) + ";" + str(row[3])
+		print str(row[0]) + ";" +  str(row[1]) + ";" + str(row[2]) + ";" + str(row[3])
 
 config = loadConfig()
 msConnection = pymssql.connect(host=config.get("mssql","host"),user=config.get("mssql","login"),password=config.get("mssql","password"))
