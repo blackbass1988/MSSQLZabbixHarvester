@@ -22,10 +22,7 @@ except:
 
 query = "select (select count(dbid) from sys.sysprocesses where dbid>0) as totalCon, sum (cpu) as cpu, sum(physical_io)  as pio, sum(memusage)  as musage from sys.sysprocesses;"	
 
-try:
-	result = msCursor.execute(query)
-except:
-	print "SQL syntax error"
+result = msCursor.execute(query)
 
 for row in result:
 	printResponse(row, config.get("commin","format"))
